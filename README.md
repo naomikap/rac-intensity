@@ -46,7 +46,7 @@ Files
 
 2. Data sets:
 
-Two data sets are used here:
+
 	A. locations_data.CSV: A data set of RAC locations. 
      The first three columns are used. 
      The first column indicates the shoe number.
