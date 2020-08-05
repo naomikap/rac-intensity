@@ -2,11 +2,15 @@
 Spatial modeling for the probability of accidental mark locations on a shoe sole
 
 Researchers: 
-Naomi Kaplan-Damary, Department of Statistics, The Hebrew University of Jerusalem, 91905 Jerusalem, Israel. naomi.kaplan@mail.huji.ac.il
-Micha Mandel, Department of Statistics, The Hebrew University of Jerusalem, 91905 Jerusalem, Israel. micha.mandel@mail.huji.ac.il
-Yoram Yekutieli, Hadassah Academic College Dept. of Computer Science 37 Hanevi'im St. P.O.Box 1114, 9101001 Jerusalem, Israel. yoramye@hac.ac.il
-Sarena Wiesner, Israel National Police Division of Identification and Forensic Science (DIFS) 1 Bar-Lev Road 91906 Jerusalem, Israel. sarenawiz@gmail.com
-Yaron Shor, Israel National Police Division of Identification and Forensic Science (DIFS) 1 Bar-Lev Road 91906 Jerusalem, Israel. yaronshor@gmail.com
+Naomi Kaplan-Damary, Department of Statistics, The Hebrew University of Jerusalem, 91905 Jerusalem, Israel. naomi.kaplan@mail.huji.ac.il.
+
+Micha Mandel, Department of Statistics, The Hebrew University of Jerusalem, 91905 Jerusalem, Israel. micha.mandel@mail.huji.ac.il.
+
+Yoram Yekutieli, Hadassah Academic College Dept. of Computer Science 37 Hanevi'im St. P.O.Box 1114, 9101001 Jerusalem, Israel. yoramye@hac.ac.il.
+
+Sarena Wiesner, Israel National Police Division of Identification and Forensic Science (DIFS) 1 Bar-Lev Road 91906 Jerusalem, Israel. sarenawiz@gmail.com.
+
+Yaron Shor, Israel National Police Division of Identification and Forensic Science (DIFS) 1 Bar-Lev Road 91906 Jerusalem, Israel. yaronshor@gmail.com.
 
 
 The location of randomly acquired characteristics (RACs) is modeled here as a point process over the shoe sole.
