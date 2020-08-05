@@ -19,44 +19,44 @@ Files
 1.Programs:
 
 	A. pixel analysis.R
-		Estimation using maximum resolution (pixel)
-		#The code  produces Figures 2,3 and the global test of all coefficients equal to zero using the random effects model conducted in 4.5.1
-		#In addition,the code produces Figures 1-4 in the Web appendix 
+		 Estimation using maximum resolution (pixel)
+		 The code  produces Figures 2,3 and the global test of all coefficients equal to zero using the random effects         model conducted in 4.5.1
+		 In addition,the code produces Figures 1-4 in the Web appendix 
 
-	B.Organizing data to include subsets (larger areas).R
-		#In this code we adjust the data files to include 14 subsets and 36 subsets
+	B. Organizing data to include subsets (larger areas).R
+		 In this code we adjust the data files to include 14 subsets and 36 subsets
 
 	C. larger areas analysis.R
-		#This is the code for estimation using larger areas
-		#The code here provides Figures 5, Table 1, it is testing the hypothesis that the lambda parameters are equal for all j using the random effects model conducted in Section 5.2.
-		#In addition it produces the histograms of contact surface in 14 areas in Section 6 of the web appendix.
-		# In addition, using contacts_data.txt we create the list cont_use  and allcount matrix which are used to determine the contour of the shoe - this is only used to improve the appearance of figure 5. 
-		# See the "Organizing data to include subsets (larger areas).R" for details.
+		 This is the code for estimation using larger areas
+		 The code here provides Figures 5, Table 1, it is testing the hypothesis that the lambda parameters are equal for      all j using the random effects model conducted in Section 5.2.
+		 In addition it produces the histograms of contact surface in 14 areas in Section 6 of the web appendix.
+		 In addition, using contacts_data.txt we create the list cont_use  and allcount matrix which are used to               determine the contour of the shoe - this is only used to improve the appearance of figure 5. 
+		 See the "Organizing data to include subsets (larger areas).R" for details.
 
 	D. functions4simulation sub-sampling techniques.R
-		# Contains the functions to be used in "sim_logistic_reg sub-sampling techniques" to create a simulation that compares the random effects and CML estimators
-  		# using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
+		 Contains the functions to be used in "sim_logistic_reg sub-sampling techniques" to create a simulation that           compares the random effects and CML estimators
+  	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
 
 	E. sim_logistic_reg sub-sampling techniques.R
-		# Creates a simulation that compares the random effects and CML estimators.
-  		# using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame
-		# using the functions in "functions4simulation sub-sampling techniques".
-		#The code  produces Figures 6.
+		 Creates a simulation that compares the random effects and CML estimators.
+  	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame
+		 using the functions in "functions4simulation sub-sampling techniques".
+		 The code  produces Figures 6.
 
 
 2. Data sets:
 
-#Two data sets are used here:
+Two data sets are used here:
 	A. locations_data.CSV: A data set of RAC locations. 
-    		#The first three columns are used. 
-    		#The first column indicates the shoe number.
-    		#The second indicates the x axis of the RAC location .
-    		#The third indicates the Y axis of the RAC location.
+     The first three columns are used. 
+     The first column indicates the shoe number.
+     The second indicates the x axis of the RAC location .
+     The third indicates the Y axis of the RAC location.
  
 	B. contacts_data.txt: A data set of the contact surface 
-    		#This is a pixel data where 1 indicates there is a contact surface and 0 otherwise.
-    		#There are 307 columns in each shoe and 395 is the number of rows.
-    		#The number of shoes is 387 but 386 is the number of shoes with RACs - shoe 127 has no RACS.
+     This is a pixel data where 1 indicates there is a contact surface and 0 otherwise.
+     There are 307 columns in each shoe and 395 is the number of rows.
+     The number of shoes is 387 but 386 is the number of shoes with RACs - shoe 127 has no RACS.
 
 Last updated: 8/5/2020
 
