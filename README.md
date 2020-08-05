@@ -1,7 +1,10 @@
 # rac-intensity
+Title:
+------
 Spatial modeling for the probability of accidental mark locations on a shoe sole
 
 Researchers: 
+------------
 Naomi Kaplan-Damary, Department of Statistics, The Hebrew University of Jerusalem, 91905 Jerusalem, Israel. naomi.kaplan@mail.huji.ac.il.
 
 Micha Mandel, Department of Statistics, The Hebrew University of Jerusalem, 91905 Jerusalem, Israel. micha.mandel@mail.huji.ac.il.
@@ -12,7 +15,8 @@ Sarena Wiesner, Israel National Police Division of Identification and Forensic S
 
 Yaron Shor, Israel National Police Division of Identification and Forensic Science (DIFS) 1 Bar-Lev Road 91906 Jerusalem, Israel. yaronshor@gmail.com.
 
-
+Description:
+------------
 The location of randomly acquired characteristics (RACs) is modeled here as a point process over the shoe sole.
 A database of RACs collected by the Israeli Police Division of Identification and Forensic Science, which includes 13,000 RACs from 386 lab shoeprints (Wiesner et al., 2019) is used  to estimate its intensity function. 
 The analysis is somewhat complicated as the shoes are differentiated by shape, level of wear and tear and contact surface. 
