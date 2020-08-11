@@ -6,6 +6,8 @@ set.seed(9517)
 library(lme4)
 library (survival)
 library(matrixStats)
+library(ggplot2)
+memory.limit(size=4000000000)
 # change working directory to current directory (if working with Rstudio)
 if(Sys.getenv('RSTUDIO') == '1')
   setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -126,7 +128,15 @@ beta_1_r<-2
 beta_2_r<- -2
 real<-c(beta_1_r,beta_2_r)
 for (i in 1:10)
-{ all <- out[[i]][[1]][,1:4]
+{ if(i<6)
+  {
+    all <- out[[i]][[1]][,2:3]
+}
+  if(i>5)
+  {
+    all <- out[[i]][[1]][,1:2]
+  }
+  
 estimators [[i]]<- colMeans(all)
 V_estimators[[i]]<-colVars(all)
 bias[[i]]<-estimators[[i]]-real
@@ -139,7 +149,7 @@ time[[i]]<-out[[i]][[2]]
 MSE_plot_x<-numeric()
 for(i in 1:10)
 { 
-  MSE_plot_x<-c(MSE_plot_x,abs(MSE[[i]][2]))
+  MSE_plot_x<-c(MSE_plot_x,abs(MSE[[i]][1]))
   
 }
 
@@ -154,7 +164,7 @@ ggplot(M_plotdat_x) + geom_bar(aes(x = M_plotdat_x$names, y = M_plotdat_x$MSE_pl
 MSE_plot_x2<-numeric()
 for(i in 1:10)
 { 
-  MSE_plot_x2<-c(MSE_plot_x2,abs(MSE[[i]][3]))
+  MSE_plot_x2<-c(MSE_plot_x2,abs(MSE[[i]][2]))
   
 }
 
