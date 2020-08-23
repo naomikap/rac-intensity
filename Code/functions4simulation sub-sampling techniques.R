@@ -46,11 +46,12 @@ samp_meth1<-function(dat,ratio){
 ######################################################################
 samp_meth2<-function(dat,ratio){
   n <- nrow(dat)
-  total_case<-nrow(dat[dat$n_acc==1,])
+  case_ind <- dat$n_acc==1
+  case <- dat[case_ind,]
+  ctrl <- dat[!(case_ind),]
+  total_case<-nrow(case)
+  total_control<-n-total_case
   if (n < total_case*(1+ratio)) {stop("sample size larger than n")}
-  case <- dat[dat$n_acc==1,]
-  ctrl <- dat[dat$n_acc==0,]
-  total_control<-nrow(ctrl)
   samp.ctrl.size <- ceiling(ratio*total_case)
   samp.ctrl <- sample(total_control, size=samp.ctrl.size, replace=FALSE)
   control <- ctrl[samp.ctrl,] 
@@ -159,6 +160,7 @@ samp_meth4<-function(dat,ratio){
 #########################################################
 
 sampling <-function(samp_method,dat,ratio) {
+  if  (samp_method==0){data_samp<-dat}
   if  (samp_method==1){data_samp<-samp_meth1(dat,ratio)}
   if  (samp_method==2){data_samp<-samp_meth2(dat,ratio)}
   if  (samp_method==3){data_samp<-samp_meth3(dat,ratio)}
