@@ -8,6 +8,7 @@ library(lme4)
 library (survival)
 library(matrixStats)
 library(ggplot2)
+library(scales)
 memory.limit(size=400000000)
 # change working directory to current directory (if working with Rstudio)
 if(Sys.getenv('RSTUDIO') == '1')
@@ -64,7 +65,7 @@ return(list(res=res,mode=mode,time=time))
 }
 
 #crearing figure 6 in the article
-results <- mainfun(300,samp=0:4,e=1:2,ratio=6) 
+results <- mainfun(300,samp=0:4,es=1:2,ratio=6) 
                                                                                                                                                     
 
 out <- results$res
@@ -106,11 +107,10 @@ for(i in 1:ncol(mode))
 
 names<-c("(0)r","(i)r","(ii)r","(iii)r","(iv)r","(0)c","(i)c","(ii)c","(iii)c","(iv)c")
 
-MSE_plot_x<-round(MSE_plot_x,3)
 M_plotdat_x<-cbind(names,MSE_plot_x)
 M_plotdat_x<-data.frame(M_plotdat_x)
 M_plotdat_x$names <- factor(M_plotdat_x$names, levels = M_plotdat_x$names)
-ggplot(M_plotdat_x) + geom_bar(aes(x = M_plotdat_x$names, y = M_plotdat_x$MSE_plot_x), stat = "identity")+xlab("Sampling and estimation method") +ylab("MSE of the X coefficient")
+ggplot(M_plotdat_x) + geom_bar(aes(x = names, y = as.numeric(paste(MSE_plot_x))), stat = "identity")+xlab("Sampling and estimation method") +ylab("MSE of the X coefficient") + coord_cartesian(ylim = c(0.015, 0.025))
 
 MSE_plot_x2<-numeric()
 for(i in 1:ncol(mode))
@@ -120,10 +120,9 @@ for(i in 1:ncol(mode))
 }
 
 
-MSE_plot_x2<-round(MSE_plot_x2,3)
 M_plotdat_x2<-cbind(names,MSE_plot_x2)
 M_plotdat_x2<-data.frame(M_plotdat_x2)
 M_plotdat_x2$names <- factor(M_plotdat_x2$names, levels = M_plotdat_x2$names)
-ggplot(M_plotdat_x2) + geom_bar(aes(x = M_plotdat_x2$names, y = M_plotdat_x2$MSE_plot_x2), stat = "identity")+xlab("Sampling and estimation method") +ylab("MSE of the X^2 coefficient")
+ggplot(M_plotdat_x2) + geom_bar(aes(x = names, y = as.numeric(paste(MSE_plot_x2))), stat = "identity")+xlab("Sampling and estimation method") +ylab("MSE of the X^2 coefficient") + coord_cartesian(ylim = c(0.014, 0.025))
 
 
