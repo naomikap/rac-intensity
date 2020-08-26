@@ -201,8 +201,7 @@ return(ell)
 #n_ij -  There are two options: can be claulated from shoe and subset (if n_ij ==NULL) or can be given  
 ########################################################################################################
 
-CML_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL)
-{ # shoe is a vector which indicates for each RAC, which shoe it belongs to
+CML_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL){ # shoe is a vector which indicates for each RAC, which shoe it belongs to
   # subset is a vector which indicates for each RAC, which subset it belongs to
   # There are two options: n_ij can be claulated from shoe and subset (if n_ij ==NULL) or be given  
   
