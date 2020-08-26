@@ -16,7 +16,7 @@
 ################################################################################################
 setwd("C:\\Users\\kapna\\Dropbox\\naomi-micha\\shoe_data\\Codes for JASA")
 ###################
-set.seed(312)
+set.seed(313)
 
 #install.packages("splines")
 #install.packages("lme4")
@@ -363,7 +363,7 @@ cols <- sub:(col_shoe-sub)
 #we multiply CML and random so they will be on the same scale 
 com_3_est<-cbind(naive_smooth[,cols],exp(-0.9915/2)*intens[,cols],exp(-0.9915/2)*intens.pred_cml[,cols]) #0.9915 is sigma^2 of the random effect. e^(sigma^2/2) is the expectation of a log linear variable lognormal(0,sigma^2). This is the expectation of the random.
 image.plot(t(com_3_est[nrow(com_3_est):1,]),axes=FALSE,xlab='Naive,Random,CML')
-pdf(file ="pixel_inten_JASA.pdf", height=6, width=6)
+pdf(file ="pixel_inten_JASAup.pdf", height=6, width=6)
 image.plot(t(com_3_est[nrow(com_3_est):1,]),axes=FALSE,xlab='Naive                     Random                     CML')
 dev.off()
 
@@ -529,7 +529,7 @@ CI_cut3<-CI_cut(cut=250,ran=range)
 # Producing Figures 1-4 in the Web appendix
 #Figure 1 in the Web appendix
 qplot(as.vector(table(acciden$shoe)), geom="histogram",bins=60,alpha=I(.5),col=I("black"))+xlab("RACs")+ylab("count")
-pdf(file ="hist_racs_JASA.pdf", height=6, width=6)
+pdf(file ="hist_racs_JASAup.pdf", height=6, width=6)
 qplot(as.vector(table(acciden$shoe)), geom="histogram",bins=60,alpha=I(.5),col=I("black"))+xlab("RACs")+ylab("count")
 dev.off()
 min_num_RACs<-min(table(acciden$shoe))
@@ -540,7 +540,7 @@ mean_num_RACs<-mean(table(acciden$shoe))
 mat_shoe_acc<- as.matrix(table(n_Acc,shoe)) #matrix of shoes, number of pixels with zero and number of pixels with 1
 cont_pix<- as.vector(mat_shoe_acc[1,]+mat_shoe_acc[2,]) # The number of pixels with contact surface is the sum of pixels with zero and with one (pixels with no contact surface are not part of the data)
 qplot(cont_pix, geom="histogram",bins=20,alpha=I(.5),col=I("black"))+xlab("Contact surface (number of pixels)")+ylab("count")
-pdf(file ="hist_npix_JASA.pdf", height=6, width=6)
+pdf(file ="hist_npix_JASAup.pdf", height=6, width=6)
 qplot(cont_pix, geom="histogram",bins=20,alpha=I(.5),col=I("black"))+xlab("Contact surface (number of pixels)")+ylab("count")
 dev.off()
 min_num_pix<-min(cont_pix)
