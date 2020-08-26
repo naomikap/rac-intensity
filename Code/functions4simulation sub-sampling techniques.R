@@ -154,7 +154,7 @@ samp_meth4<-function(dat,ratio){
 
 
 ########################################################
-# Calling the sampling metod.
+# Calling the sampling method.
 # samp_methods - take values 1-4 (see methods above)
 # other input variables - see methods above
 #########################################################
@@ -244,7 +244,7 @@ est<-function(da,es_method,samp_meth,intercept=FALSE){
 ###########
 # data set with 4 variables: 
 # cluster - indicator of cluster
-# x - a determenistic sequence from 1/cluster_size to 1 (location of pixel)
+# x - a deterministic sequence from 1/cluster_size to 1 (location of pixel)
 # x_square - x^2 
 # n_acc - the binary 0/1 variable (response)
 ################################################################

@@ -1,7 +1,6 @@
 ###################################################
 #This is the code for estimation using larger areas
 #The code here provides Figures 5, Table 1, testing the hypothesis that the lambda parameters are equal for all j using the random effects model conducted in Section 5.2
-# In addition, it includes Figure 8+9 in section 6.2 and in the Web appendix: Figures 7-28 in section 7 and table 1
 #and the Histograms of contact surface in 14 areas in Section 6 of the web appendix
 ####################################################
 # The r file "Organizing data to include subsets (larger areas)" was used to adjust the following files to include 14 subsets and 36 subsets
@@ -101,7 +100,7 @@ Random_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_m
   
   #Adjusting  the matrices for the random effect procedure
   #creating a chi matrix that its dimentions fits the n used in the hglm procedure
-  #the rows of original chi matrix  are orgenized one after the other, creating a long vector
+  #the rows of original chi matrix  are organized one after the other, creating a long vector
   
   chi_rand1<-contact_mat[1,]
   for (i in 2:num_shoes)
@@ -111,7 +110,7 @@ Random_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_m
   chi_rand1<-as.vector(unlist(chi_rand1))
   chi_rand<-chi_rand1[chi_rand1>0] #We are not including observations where contact_mat=0 and thus contact_mat is adjusted
   
-  #X - the design matrix - for the hglm procedure (the dimentions are M-num_shoes * J-num_areas)
+  #X - the design matrix - for the hglm procedure (the dimensions are M-num_shoes * J-num_areas)
   x<-numeric()
   for (i in 1:num_shoes)
   {
@@ -119,7 +118,7 @@ Random_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_m
   }
   
   x<-x[chi_rand1>0,] #Adjustind x to suit the correction of not including in the analysis observations (n) when chi=0
-  # Z matrix (neede for hglm procedure)
+  # Z matrix (needed for hglm procedure)
   z<-NULL
   for (i in 1:num_shoes)
   {  
@@ -311,7 +310,7 @@ CI<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NU
   num_areas<-length(unique(subset))
   hes <- CML_res$hes
   var_theta<-  solve(hes)
-  #The reason that we do not have to multiply the hassian by -1 is that all of the evaluation has been done in terms of -1 times the log-likelihood.
+  #The reason that we do not have to multiply the hessian by -1 is that all of the evaluation has been done in terms of -1 times the log-likelihood.
   #This means that the hessian that is produced by optim is already multiplied by -1
   
   #applying the delta method to get log(Lambda_j) j=2,...,J variance 

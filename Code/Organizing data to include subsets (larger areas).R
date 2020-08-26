@@ -444,8 +444,8 @@ for (i in 1:num_shoe)
     chi[i,j]<-sum(subAreaCont(i,j))
   }
 }
-chi<-chi[-127,] # there is no  RACS in shoe 127 and therefore it is removed
-chi<-chi/10000 # chi is divided in 10000 and so now it is be between zero and 1
+chi<-chi[-127,] # there are no  RACS in shoe 127 and therefore it is removed
+chi<-chi/10000 # chi is divided by 10000 and so now it is be between zero and 1
 
 write.csv(chi, "chi.CSV",row.names=FALSE)
 
@@ -512,7 +512,7 @@ for (i in 1:num_shoe)
     chi2[i,j]<-sum(subAreaCont_36(i,j))
   }
 }
-chi2<-chi2/10000 # chi2 is divided in 10000 and so now it is be between zero and 1
+chi2<-chi2/10000 # chi2 is divided by 10000 and so now it is be between zero and 1
 chi2<-chi2[-127,] # there is no shoe 127 - this is a shoe with no RACs
 
 write.csv(chi2, "chi2.CSV",row.names=FALSE)
@@ -522,7 +522,7 @@ write.csv(chi2, "chi2.CSV",row.names=FALSE)
 n_sub<-ncol(chi)
 allcont <- data[[1]]
 for(i in 2:num_shoe) allcont <- allcont+data[[i]] #this is the contact of all shoes 
-allcont <- (allcont>=18)*1 #We are interseted in the contour of the shoe.  As an approximation to the cumulative contour we are looking at pixels that appear in more than 18 shoes 
+allcont <- (allcont>=18)*1 #We are interested in the contour of the shoe.  As an approximation to the cumulative contour we are looking at pixels that appear in more than 18 shoes 
 cont_use<-list()
 for(i in 1:n_sub)
 {

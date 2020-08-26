@@ -64,8 +64,8 @@ time<-as.vector(proc.time() - ptm)[3]
 return(list(res=res,mode=mode,time=time))
 }
 
-#crearing figure 6 in the article
-results <- mainfun(300,samp=0:4,es=1:2,ratio=6) 
+#creating figure 6 in the article
+results <- mainfun(200,samp=0:4,es=1:2,ratio=6) 
                                                                                                                                                     
 
 out <- results$res

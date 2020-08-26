@@ -1,5 +1,5 @@
 #This is the code for estimation using maximum resolution (pixel analysis)
-#The code  here produces Figures 2,3 and the global test of all coefficients equal to zero using the random effects model conducted in 4.5.1
+#The code  here produces Figures 2,3 and the global test of all coefficients equal to zero using the random effects model conducted in section 4.5.1
 #In addition, the code produces Figures 1-4 in the Web appendix 
 ################################################################################################
 #Two data sets are used here:
@@ -10,7 +10,7 @@
     #the third indicates the Y axis of the RAC location. 
 #2. contacts_data.txt: A data set of the contact surface 
     #This is a pixel data where 1 indicates there is a contact surface and 0 otherwise
-    #There are 307 columns in each shoe and 395 is the number of rows
+    #There are 307 columns and 395 rows in each shoe
     #The number of shoes is 387 but 386 is the number of shoes with RACs - shoe 127 has no RACS
     
 ################################################################################################
@@ -49,7 +49,7 @@ rel_Y_cord<-0.5 #the relevant Y coordinates are between -0.5 and 0.5
 
 
 
-#The following two functions converts the x and Y coordinate of the location of a RAC to the X and Y pixels
+#The following two functions convert the x and Y coordinates of the location of a RAC to the X and Y pixels
 
 ##################################################################################################################
 # aspix_x converts the x coordinate to the x pixel
@@ -112,7 +112,7 @@ data[[9]] <- data[[9]][,ncol(data[[9]]):1]
 #These are not part of the shoe's contact surface and thus are omitted  
 #The first stage in cleaning the stamps was to try to separate them from the actual contact surface 
 #We try to find the lower bound of the cumulative contact surfce to separate the stamps from the actual contact surface
-#we found that if we look only at contact surface that appeared in more than 8 shoes it provided a relatively good separation 
+#we found that if we look only at the contact surface that appeared in more than 8 shoes it provided a relatively good separation 
 allcont <- data[[1]]
 for(i in 2:num_shoe)
 {
@@ -221,7 +221,7 @@ n_Acc[n_Acc>=1] <-1 # more than one RAC in a shoe is considered as 1
 x<- data_pix_use[,2]
 y<- data_pix_use[,3]
 shoe<-as.factor(data_pix_use[,1]) #it should be noted that as factor changes the numbering
-                                  #since shoe 127 doesnt exist, as factor makes the numbering of shoes 128 to 387 to decrease by 1. (shoe 128 is now 127 etc.)
+                                  #since shoe 127 doesn't exist, as factor makes the numbering of shoes 128 to 387 to decrease by 1. (shoe 128 is now 127 etc.)
 mydata <- data.frame(cbind(n_Acc, x, y,shoe))  #This is the data that will be used                             
 for(j in 1:nrow(locations)) {
      xpix <-aspix_x(locations[j,1])   
@@ -261,8 +261,8 @@ for(i in c(2:126,128:387))
   #where each entry of the smoothed matrix is calculated as the average of its 21^2 neighbor entries in the original matrix.
 # INPUT:
 # ======
-#cumRAC is the comulative matrix of RAC locations of all shoes
-#cumContact is the comulative matrix of all contact surfaces of all shoes
+#cumRAC is the cumulative matrix of RAC locations of all shoes
+#cumContact is the cumulative matrix of all contact surfaces of all shoes
 #areaShoe is the area of the of the shoes which defines the contour of all shoes
   #In our case is all pixels that appear in more than 8 shoes
 ##################################################################################################################
@@ -349,10 +349,10 @@ for(i in 1:length(predict(basy,1))) {
   }
 }
 
-pred.cml.bin.case_control <- newdesignmat1%*%c(0,coefficients(cml)) # the intercept cant be estimated since it cancels 
-pred.cml.bin.case_control[t(allcont)==0] <- NA #areas out of the contour (less than 8 shoes has contact surface in these pixels) are given NA
+pred.cml.bin.case_control <- newdesignmat1%*%c(0,coefficients(cml)) # the intercept can't be estimated since it cancels 
+pred.cml.bin.case_control[t(allcont)==0] <- NA #areas out of the contour (less than 8 shoes have contact surface in these pixels) are given NA
 m_1<-mean(pred.cml.bin.case_control,na.rm=TRUE)
-pred.cml.bin.case_control<-pred.cml.bin.case_control-m_1+m #making the means of randon and cml to be equal
+pred.cml.bin.case_control<-pred.cml.bin.case_control-m_1+m #making the means of random and cml to be equal
 prob.pred_cml <- exp(matrix(pred.cml.bin.case_control ,row_shoe,col_shoe,byrow=1))/(1+exp(matrix(pred.cml.bin.case_control ,row_shoe,col_shoe,byrow=1)))
 intens.pred_cml <- -log(1-prob.pred_cml)
 image.plot(intens.pred_cml,axes=FALSE) #notice that these probabilities depend on the intercept which is not included since it cancels. 
@@ -382,7 +382,7 @@ testing$`Pr(>Chisq)` #pvalue is approximately zero
 #dat - the data used for estimation, we are using here the case control data
 # col_shoe - the number of columns in each shoe
 # row_shoe - the number of rows in each shoe
-# rel_Y_cord - the relevant coordintes 
+# rel_Y_cord - the relevant coordinates 
   #(using coordinates as in the locations_data.CSV file. the relevant Y coordinates are between -0.5 and 0.5)
 # rel_col_shoe -the number of relevant columns 
   #out of the 307 columns only 150 are relevant (contain non zero pixels in some shoes)
@@ -438,7 +438,7 @@ CI <- CI_cml()
 #dat - the data used for estimation, we are using here the case control data
 # col_shoe - the number of columns in each shoe
 # row_shoe - the number of rows in each shoe
-# rel_Y_cord - the relevant coordintes 
+# rel_Y_cord - the relevant coordinates 
   #(using coordinates as in the locations_data.CSV file. the relevant Y coordinates are between -0.5 and 0.5)
 # rel_col_shoe -the number of relevant columns 
   #out of the 307 columns only 150 are relevant (contain non zero pixels in some shoes)
@@ -500,7 +500,7 @@ cut3<-250
 # INPUT:
 # ======
 #cut - the specific row of the shoe on the basis of which the CI would be calculated
-#ran - the range of the colums on the basis of which the CI would be calculated
+#ran - the range of the columns on the basis of which the CI would be calculated
 ##################################################################################################################
 range<-c(1:col_shoe) 
 CI_cut<-function(cut=110,ran=range)
@@ -549,9 +549,9 @@ mean_num_pix<-mean(cont_pix)
 #Figure 3 in the Web appendix
 tmp <- sumcont
 tmp[allcont==0]<-NA
-image.plot(t(tmp[nrow(tmp):1,]),axes=FALSE,xlab = 'Comulative Contact Surface') #image of cumulative contact surface
+image.plot(t(tmp[nrow(tmp):1,]),axes=FALSE,xlab = 'Cumulative Contact Surface') #image of cumulative contact surface
 pdf(file ="cum_contact_JASA.pdf", height=6, width=6)
-image.plot(t(tmp[nrow(tmp):1,]),axes=FALSE,xlab = 'Comulative Contact Surface') #image of cumulative contact surface
+image.plot(t(tmp[nrow(tmp):1,]),axes=FALSE,xlab = 'Cumulative Contact Surface') #image of cumulative contact surface
 dev.off()
 #Figure 4 in the Web appendix
 dat<-data.frame(cbind(cont_pix,mat_shoe_acc[2,]))
