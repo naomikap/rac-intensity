@@ -1,7 +1,7 @@
 # rac-intensity
 Title:
 ------
-Spatial modeling for the probability of accidental mark locations on a shoe sole
+Spatial modeling of randomly acquired characteristics on outsoles with application to forensic shoeprint analysis
 
 Researchers: 
 ------------
