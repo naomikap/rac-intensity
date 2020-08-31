@@ -1,7 +1,7 @@
 ###################################################
 #This is the code for estimation using larger areas
 #The code here provides Figures 5, Table 1, testing the hypothesis that the lambda parameters are equal for all j using the random effects model conducted in Section 5.2
-#and the Histograms of contact surface in 14 areas in Section 6 of the web appendix
+#In addition, it provides Figure 7 in section 6.2  and the Histograms of contact surface in 14 areas in Section 6 of the web appendix
 ####################################################
 # The r file "Organizing data to include subsets (larger areas)" was used to adjust the following files to include 14 subsets and 36 subsets
 
@@ -90,7 +90,7 @@ Naive<-Naive_estimator()
 # subset - is a vector which indicates for each RAC, which subset it belongs to
 # contact_mat - is the contact surface matrix which  
   #each row in corresponds to the shoe and the column indicates the subset 
-#n_ij -  There are two options: can be claulated from shoe and subset (if n_ij ==NULL) or can be given  
+#n_ij -  There are two options: can be calculated from shoe and subset (if n_ij ==NULL) or can be given  
 ########################################################################################################
 
 Random_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL)
@@ -162,7 +162,7 @@ Random<-Random_estimator()
 # subset - is a vector which indicates for each RAC, which subset it belongs to
 # contact_mat - is the contact surface matrix which  
     #each row in corresponds to the shoe and the column indicates the subset 
-#n_ij -  There are two options: can be claulated from shoe and subset (if n_ij ==NULL) or can be given  
+#n_ij -  There are two options: can be calculated from shoe and subset (if n_ij ==NULL) or can be given  
 ########################################################################################################
 
 funLogCMLlambda <- function(l_lambda_minus1,shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL)
@@ -198,28 +198,18 @@ return(ell)
 # subset - is a vector which indicates for each RAC, which subset it belongs to
 # contact_mat - is the contact surface matrix which  
     #each row in corresponds to the shoe and the column indicates the subset 
-#n_ij -  There are two options: can be claulated from shoe and subset (if n_ij ==NULL) or can be given  
+#n_ij -  There are two options: can be calculated from shoe and subset (if n_ij ==NULL) or can be given  
 ########################################################################################################
 
-CML_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL){ # shoe is a vector which indicates for each RAC, which shoe it belongs to
-  # subset is a vector which indicates for each RAC, which subset it belongs to
-  # There are two options: n_ij can be claulated from shoe and subset (if n_ij ==NULL) or be given  
+CML_estimator<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL){   
   
   Naive_est<-Naive_estimator(shoe=shoe,subset=subset,contact_mat=contact_mat,n_ij=n_ij)
     
-  num_shoes<-nrow(contact_mat)
-  num_areas<-ncol(contact_mat)
-  if(is.null(n_ij))
-  {
-    n_ij <- matrix(as.numeric(table(shoe,subset)),num_shoes,num_areas,byrow=FALSE)
-    
-  }
- 
   opt<-optim(log(Naive_est[-1]/Naive_est[1]), funLogCMLlambda,hessian = TRUE,shoe=shoe,subset=subset,contact_mat=contact_mat,n_ij=n_ij)####
   theta<-  opt$par  # these are estimators of log(Lambdaj/Lambda1) j=2,...J
   hes<-opt$hessian
-  n_chi<-n_ij[contact_mat>0]/contact_mat[contact_mat>0]
-  LAM<-sum(n_chi)/num_shoes
+  LAM<-sum(Naive_est)
+
   l_lambda_cml_1<-log(LAM)-log(1+sum(exp(theta)))
   l_lambda_cml_2_j<-theta+log(LAM)-log(1+sum(exp(theta)))
   l_lambda_cml<-c(l_lambda_cml_1,l_lambda_cml_2_j)  
@@ -271,7 +261,7 @@ dev.off()
 # subset - is a vector which indicates for each RAC, which subset it belongs to
 # contact_mat - is the contact surface matrix which  
     #each row in corresponds to the shoe and the column indicates the subset 
-#n_ij -  There are two options: can be claulated from shoe and subset (if n_ij ==NULL) or can be given  
+#n_ij -  There are two options: can be calculated from shoe and subset (if n_ij ==NULL) or can be given  
 ########################################################################################################
 CI<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL)
 { # shoe is a vector which indicates for each RAC, which shoe it belongs to
@@ -388,7 +378,7 @@ funLogRanlambda <- function(params,shoe=data_RAC$shoe,subset=data_RAC$sub_area,c
 # subset - is a vector which indicates for each RAC, which subset it belongs to
 # contact_mat - is the contact surface matrix which  
     #each row in corresponds to the shoe and the column indicates the subset 
-#n_ij -  There are two options: can be claulated from shoe and subset (if n_ij ==NULL) or can be given  
+#n_ij -  There are two options: can be calculated from shoe and subset (if n_ij ==NULL) or can be given  
 
 ########################################################################################################
 hypothsis_test<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij=NULL)
@@ -413,7 +403,123 @@ hypothsis_test<-function(shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat
 
 hypothsis_test()
 
-#Section 6 of the web appendix: Histograms of contact surface in 14 areas
+
+#######################################################################################################
+#Comparison of the three estimators 
+#Figure 7 in section 6.2 
+# INPUT:
+# ======
+# num_sim The number of simulations 
+# shoe - is a vector which indicates for each RAC, which shoe it belongs to
+# subset - is a vector which indicates for each RAC, which subset it belongs to
+# contact_mat - is the contact surface matrix which  
+#each row in corresponds to the shoe and the column indicates the subset 
+#n_ij -  There are two options: can be calculated from shoe and subset (if n_ij ==NULL) or can be given  
+
+########################################################################################################
+estimateLambda<-function(num_sim=500,shoe=data_RAC$shoe,subset=data_RAC$sub_area,contact_mat=chi,n_ij =NULL)
+{ 
+  ptm <- proc.time()
+  lambda_sim<-Naive_estimator(shoe=shoe,subset=subset,contact_mat=contact_mat,n_ij=n_ij)
+  chi_sim<-contact_mat
+  n_i_dot <-as.numeric(table(shoe))
+  sum_j_chi_ij_lam_j <- contact_mat %*% lambda_sim
+  var_a<- mean(((n_i_dot^2-n_i_dot)/(sum_j_chi_ij_lam_j^2))-1) 
+ 
+  numberOfShoes<-nrow(chi_sim)
+  numberOfAreasInShoe<-ncol(chi_sim)
+  
+  lambdasRandom <- matrix(NA,num_sim,numberOfAreasInShoe)
+  lambdasCML <- matrix(NA,num_sim,numberOfAreasInShoe)
+  lambdasNaive <- matrix(NA,num_sim,numberOfAreasInShoe)
+  
+  n<-matrix(NA,dim(chi_sim)[1],dim(chi_sim)[2])
+  ##generating the number of RACs in pixel j of shoe i
+  for (t in 1:num_sim)
+  {
+    print(t)
+    a_sim <- rgamma(numberOfShoes,shape=1/var_a,scale = var_a)
+    for (i in 1:numberOfShoes)
+    {
+      for (j in 1:numberOfAreasInShoe)
+      { 
+        if(chi_sim[i,j]>0) #we have RACs only where there is contact surface 
+        {
+          
+          n[i,j]<- rpois(1,lambda_sim[j]*a_sim[i]*chi_sim[i,j])
+          
+        }
+        
+      }
+    }
+    
+    lambdasRandom[t,]<-Random_estimator(shoe=NULL,subset=NULL,contact_mat=chi_sim,n_ij=n)$random
+    lambdasCML[t,]<-CML_estimator(shoe=NULL,subset=NULL,contact_mat=chi_sim,n_ij=n)$CML
+    lambdasNaive[t,]<-Naive_estimator(shoe=NULL,subset=NULL,contact_mat=chi_sim,n_ij=n)
+    
+  }
+  
+  # calculating bias and MSE
+  meanRandom<-.colMeans(lambdasRandom, num_sim, numberOfAreasInShoe, na.rm = FALSE)
+  meanNaive<-.colMeans(lambdasNaive, num_sim, numberOfAreasInShoe, na.rm = FALSE)
+  meanCML<-.colMeans(lambdasCML, num_sim, numberOfAreasInShoe, na.rm = FALSE)
+  
+  VarRandom<- apply(lambdasRandom,2,var)
+  VarCML<-apply(lambdasCML,2,var)
+  VarNaive<-apply(lambdasNaive,2,var)
+  
+    mj<-colSums(chi_sim!=0)
+  chi_sim_NA<-chi_sim
+  chi_sim_NA[chi_sim==0] <- NA
+  VarNaive_th<-(lambda_sim^2*var_a/mj)+(lambda_sim/(mj^2))* colSums(1/chi_sim_NA,na.rm = TRUE)
+    
+  
+  biasRandom<-meanRandom-lambda_sim
+  biasNaive<-meanNaive-lambda_sim
+  biasCML<-meanCML-lambda_sim
+  
+  MSERandom<-(biasRandom)^2+VarRandom
+  MSENaive<-(biasNaive)^2+VarNaive
+  MSECML<-(biasCML)^2+VarCML
+  
+  meanMSERandom<-mean(MSERandom)
+  meanMSENaive<-mean(MSENaive)
+  meanMSECML<-mean(MSECML)
+  
+  meanbiasRandom<-mean(biasRandom)
+  meanbiasNaive<-mean(biasNaive)
+  meanbiasCML<-mean(biasCML)
+  
+  time<-as.vector(proc.time() - ptm)[3]
+  return(list(lambda_sim=lambda_sim,meanRandom=meanRandom,meanNaive=meanNaive ,meanCML=meanCML,biasRandom=biasRandom,biasNaive=biasNaive,biasCML=biasCML,VarRandom=VarRandom,VarNaive=VarNaive,VarCML=VarCML,MSERandom=MSERandom,MSENaive=MSENaive,MSECML=MSECML,lambdasRandom=lambdasRandom,lambdasNaive=lambdasNaive,lambdasCML=lambdasCML, a_sim=a_sim , num_sim=num_sim, numberOfShoes=numberOfShoes ,numberOfAreasInShoe=numberOfAreasInShoe,meanMSERandom=meanMSERandom, meanMSENaive=meanMSENaive,meanMSECML=meanMSECML,meanbiasRandom=meanbiasRandom,meanbiasNaive=meanbiasNaive,meanbiasCML=meanbiasCML,VarNaive_th=VarNaive_th,time=time))
+}
+output1<-estimateLambda()
+
+pdf("Figure7_bias_JASA.pdf", height=6, width=6)
+bias_comparison<-rbind(output1$biasCML/output1$lambda_sim,output1$biasRandom/output1$lambda_sim,output1$biasNaive/output1$lambda_sim)
+bias_comparison<-as.matrix(bias_comparison)
+bias_comparison1<-rbind(bias_comparison[1,order(output1$lambda_sim)],bias_comparison[2,order(output1$lambda_sim)],bias_comparison[3,order(output1$lambda_sim)])
+rownames(bias_comparison1) <- c( "CML", "Random","Naive")
+colours <- c("blue", "green","yellow")
+barplot(as.matrix(bias_comparison1), main="Relative bias", ylab = "Bias",xlab="Lambda values", cex.lab = 1.2, cex.main = 1.4, beside=TRUE, col=colours,names.arg=round(sort(output1$lambda_sim),1),cex.axis=0.8, cex.names=0.7)
+legend("topright",  c( "CML", "Random","Naive"), cex=0.7, bty="n", fill=colours)
+dev.off()
+
+pdf("Figure7_MSE_JASA.pdf", height=6, width=6)
+MSE_comparison<-rbind(output1$MSECML/output1$VarNaive_th,output1$MSERandom/output1$VarNaive_th,output1$MSENaive/output1$VarNaive_th)
+MSE_comparison<-as.matrix(MSE_comparison)
+MSE_comparison1<-rbind(MSE_comparison[1,order(output1$lambda_sim)],MSE_comparison[2,order(output1$lambda_sim)],MSE_comparison[3,order(output1$lambda_sim)])
+rownames(MSE_comparison1) <- c( "CML", "Random","Naive")
+print(MSE_comparison1)
+colours <- c( "blue", "green","yellow")
+out<-sort(output1$lambda_sim)
+barplot(as.matrix(MSE_comparison1), main="MSE ratio", ylab = "MSE",xlab="Lambda values", cex.lab = 1.2, cex.main = 1.4, beside=TRUE, col=colours,names.arg=round(out,1),cex.axis=0.8, cex.names=0.7,ylim=c(0,1.35))
+legend("topright",  c( "CML", "Random","Naive"), cex=0.7, bty="n", fill=colours)
+abline(h =1 , untf = FALSE,col=1)
+dev.off()
+
+#####Section 6 of the web appendix: Histograms of contact surface in 14 areas############
+#########################################################################################
 plot_fun<-function(dat,u)
 {
   qp<-qplot(dat[,u], geom="histogram",
