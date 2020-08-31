@@ -26,29 +26,29 @@ Files
 ----- 
 1.Programs:
 
-	A. pixel analysis.R
+	A. "pixel analysis.R""
 		 Estimation using maximum resolution (pixel)
 		 The code  produces Figures 2,3 and the global test of all coefficients equal to zero using the random effects model conducted in 4.5.1
 		 In addition,the code produces Figures 1-4 in the Web appendix 
 
-	B. Organizing data to include subsets (larger areas).R
+	B. "Organizing data to include subsets (larger areas).R""
 		 In this code we adjust the data files to include 14 subsets and 36 subsets
 
-	C. larger areas analysis.R
+	C. "larger areas analysis.R""
 		 This is the code for estimation using larger areas
 		 The code here provides Figures 5, Table 1, it is testing the hypothesis that the lambda parameters are equal for all j using the random effects model conducted in Section 5.2.
-		 In addition it produces the histograms of contact surface in 14 areas in Section 6 of the web appendix.
-		 In addition, using contacts_data.txt we create the list cont_use  and allcount matrix which are used to determine the contour of the shoe - this is only used to improve the appearance of figure 5. 
+		 In addition, it provides Figure 7 in section 6.2 and the Histograms of contact surface in 14 areas in Section 6 of the web appendix.
+		 Using contacts_data.txt we create the list cont_use  and allcount matrix which are used to determine the contour of the shoe - this is only used to improve the appearance of figure 5. 
 		 See the "Organizing data to include subsets (larger areas).R" for details.
 
-	D. functions4simulation sub-sampling techniques.R
+	D. "functions4simulation sub-sampling techniques.R""
 		 Contains the functions to be used in "sim_logistic_reg sub-sampling techniques" to create a simulation that compares the random effects and CML estimators
   	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
 
-	E. sim_logistic_reg sub-sampling techniques.R
+	E. "sim_logistic_reg sub-sampling techniques."R"
 		 Creates a simulation that compares the random effects and CML estimators.
-  	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame
-		 using the functions in "functions4simulation sub-sampling techniques".
+  	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
+		 The functions in "functions4simulation sub-sampling techniques" are used.
 		 The code  produces Figures 6.
 
 
@@ -66,7 +66,7 @@ Files
      There are 307 columns in each shoe and 395 is the number of rows.
      The number of shoes is 387 but 386 is the number of shoes with RACs - shoe 127 has no RACS.
 
-Last updated: 8/5/2020
+Last updated: 8/31/2020
 
 
-These analyses are created as part of the manuscript "Spatial modeling for the probability of accidental mark locations on a shoe sole": https://arxiv.org/abs/1912.08272.  
+These analyses are created as part of the manuscript "Spatial modeling of randomly acquired characteristics on outsoles with application to forensic shoeprint analysis": https://arxiv.org/abs/1912.08272.  
