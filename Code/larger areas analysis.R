@@ -1,7 +1,7 @@
 ###################################################
 #This is the code for estimation using larger areas
 #The code here provides Figures 5, Table 1, testing the hypothesis that the lambda parameters are equal for all j using the random effects model conducted in Section 5.2
-#In addition, it provides Figure 7 in section 6.2  and the Histograms of contact surface in 14 areas in Section 6 of the web appendix
+#In addition, it provides Figure 7 in section 6.2  
 ####################################################
 # The r file "Organizing data to include subsets (larger areas)" was used to adjust the following files to include 14 subsets and 36 subsets
 
@@ -518,18 +518,4 @@ legend("topright",  c( "CML", "Random","Naive"), cex=0.7, bty="n", fill=colours)
 abline(h =1 , untf = FALSE,col=1)
 dev.off()
 
-#####Section 6 of the web appendix: Histograms of contact surface in 14 areas############
-#########################################################################################
-plot_fun<-function(dat,u)
-{
-  qp<-qplot(dat[,u], geom="histogram",
-            main = paste("Sub area",u,sep = " ", collapse = NULL), col=I("black"),
-            xlab = "Contact sutface" ,bins=21)+ xlim(0, 0.3)
-  return(qp)
-}
-u<-seq(1:14)
-Con<-lapply(u,plot_fun,dat=chi)
-pdf("hist_Contact_JASA.pdf", height=6, width=6)
-grid.arrange(Con[[1]],Con[[2]],Con[[3]],Con[[4]],Con[[5]],Con[[6]],Con[[7]],Con[[8]],Con[[9]],Con[[10]],Con[[11]],Con[[12]],Con[[13]],Con[[14]])
-dev.off()
 
