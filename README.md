@@ -42,12 +42,10 @@ Files
 		 See the "Organizing data to include subsets (larger areas).R" for details.
 
 	D. "functions4simulation sub-sampling techniques.R""
-		 Contains the functions to be used in "sim_logistic_reg sub-sampling techniques" to create a simulation that compares the random effects and CML estimators
-  	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
+		 Contains the functions to be used in "sim_logistic_reg sub-sampling techniques" to create a simulation that compares the random effects and CML estimators  	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
 
 	E. "sim_logistic_reg sub-sampling techniques."R"
-		 Creates a simulation that compares the random effects and CML estimators.
-  	 using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
+		 Creates a simulation that compares the random effects and CML estimators using different types of within-cluster case-control sub-sampling and sub-sampling across the whole data frame.
 		 The functions in "functions4simulation sub-sampling techniques" are used.
 		 The code  produces Figures 6.
 
@@ -65,7 +63,9 @@ Files
      This is a pixel data where 1 indicates there is a contact surface and 0 otherwise.
      There are 307 columns in each shoe and 395 is the number of rows.
      The number of shoes is 387 but 386 is the number of shoes with RACs - shoe 127 has no RACS.
-
+     
+     
+If using the data, please cite the current paper and Wiesner, S., Shor, Y., Tsach, T., Kaplan-Damary, N., & Yekutieli, Y. (2020). Dataset of Digitized RACs and Their Rarity Score Analysis for Strengthening Shoeprint Evidence. Journal of Forensic Sciences, 65(3), 762-774.
 Last updated: 8/31/2020
 
 
