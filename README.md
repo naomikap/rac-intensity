@@ -37,7 +37,7 @@ Files
 	C. "larger areas analysis.R""
 		 This is the code for estimation using larger areas
 		 The code here provides Figures 5, Table 1, it is testing the hypothesis that the lambda parameters are equal for all j using the random effects model conducted in Section 5.2.
-		 In addition, it provides Figure 7 in section 6.2 and the Histograms of contact surface in 14 areas in Section 6 of the web appendix.
+		 In addition, it provides Figure 7 in section 6.2.
 		 Using contacts_data.txt we create the list cont_use  and allcount matrix which are used to determine the contour of the shoe - this is only used to improve the appearance of figure 5. 
 		 See the "Organizing data to include subsets (larger areas).R" for details.
 
